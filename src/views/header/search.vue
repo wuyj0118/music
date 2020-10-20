@@ -103,7 +103,7 @@ export default {
 
 <style lang="less">
 .header-search {
-  margin: 0 20px;
+  margin: 0 10px;
   position: relative;
 }
 .search-overlay {

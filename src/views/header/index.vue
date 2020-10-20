@@ -19,26 +19,33 @@
     </div>
     <div class="nav-r">
       <HeaderSeach />
-      <!-- <a-button type="primary" shape="round">
-        登陆
-      </a-button> -->
+      <div>
+        <span class="nav-login" @click="switchLoginModal(true)">登陆</span>
+      </div>
     </div>
+    <Login />
   </nav>
 </template>
 
 <script>
 import HeaderSeach from '@/views/header/search'
+import Login from '@/views/header/Login'
 import logoImg from '@/assets/logo.png'
+import { mapMutations } from 'vuex'
 export default {
   name: 'Nav',
   components: {
     HeaderSeach,
+    Login,
   },
   data() {
     return {
       logoImg,
     }
-  }
+  },
+  methods: {
+    ...mapMutations(['switchLoginModal'])
+  },
 }
 </script>
 
@@ -92,9 +99,15 @@ export default {
 }
 .nav-r {
   float: right;
-  color: #fff;
   font-size: 20px;
   display: flex;
   align-items: center;
+}
+.nav-login {
+  font-size: 14px;
+  color: #999;
+  padding: 0 5px;
+  line-height: 1.4;
+  cursor: pointer;
 }
 </style>

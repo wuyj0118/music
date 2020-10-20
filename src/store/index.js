@@ -10,7 +10,10 @@ export default new Vuex.Store({
       songs: [],
       playIndex: -1,
       loopType: 2, // 1: 单曲循环, 2: 列表循环
-    }
+    },
+    login: {
+      isModal: false,
+    },
   },
   getters: {
     currPlaySong: ({ player }) => {
@@ -57,6 +60,9 @@ export default new Vuex.Store({
     },
     switchLoopType({ player }) {
       player.loopType = player.loopType == 1 ? 2 : 1
+    },
+    switchLoginModal({ login }, status) {
+      login.isModal = status
     }
   },
   actions: {
