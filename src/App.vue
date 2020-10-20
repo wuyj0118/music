@@ -1,32 +1,48 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <a-layout>
+    <a-layout-header id="l-header">
+      <Nav />
+    </a-layout-header>
+    <a-layout-content id="l-content">
+      <router-view/>
+      <Player />
+    </a-layout-content>
+    <a-layout-footer>
+      <div id="l-footer">
+        <p>以上数据来源网络，仅供学习，侵权立删！</p>
+      </div>
+    </a-layout-footer>
+  </a-layout>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<script>
+import Nav from '@/views/header/index.vue'
+import Player from '@/views/player/index.vue'
+
+export default {
+  name: 'APP',
+  components: {
+    Nav,
+    Player,
+  },
+}
+</script>
+
+<style lang="less">
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#l-header {
+  background: #fff;
+  border-bottom: 2px solid #ec0101;
+}
+#l-content {
+  background: #f9f9f9;
+}
+#l-footer {
   text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+  padding-bottom: 40px;
 }
 </style>
