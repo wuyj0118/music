@@ -36,6 +36,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { calcCount } from '@/utils/assets'
 
 export default {
   name: 'SearchPlaylist',
@@ -47,14 +48,11 @@ export default {
     searchTxt: String,
   },
   methods: {
+    calcCount,
     ...mapActions(['getPlaylistAndPlay']),
     highlightText(t) {
       return t.replace(this.searchTxt, `<span style='color: #1890ff'>${this.searchTxt}</span>`)
     },
-    calcCount(n) {
-      if (n > 1e4) return (n / 1e4).toFixed(1) + '万'
-      return n
-    }
   }
 }
 </script>

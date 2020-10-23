@@ -21,12 +21,9 @@ const routes = [
       },
       {
         path: 'rank',
+        name: 'Rank',
         component: () => import('@/views/home/rank/index.vue'),
         children: [
-          {
-            path: '',
-            redirect: '/h/rank/19723756'
-          },
           {
             path: ':id',
             name: 'RankDetail',
@@ -126,7 +123,7 @@ const routes = [
         ]
       },
       {
-        path: '/artist/:id',
+        path: 'artist/:id',
         name: 'ArtistDetail',
         component: () => import('@/views/home/artist/ArtistDetail.vue'),
         meta: { title: '歌手详情' },
@@ -171,22 +168,26 @@ const routes = [
       {
         path: 'artist',
         name: 'MyArtist',
-        component: () => import('@/views/my/artist.vue')
+        component: () => import('@/views/my/artist.vue'),
+        meta: { title: '我的歌手' },
       },
       {
         path: 'video',
         name: 'MyVideo',
-        component: () => import('@/views/my/video.vue')
+        component: () => import('@/views/my/video.vue'),
+        meta: { title: '我的视频' },
       },
       {
         path: 'radio',
         name: 'MyRadio',
-        component: () => import('@/views/my/radio.vue')
+        component: () => import('@/views/my/radio.vue'),
+        meta: { title: '我的电台' },
       },
       {
         path: 'playlist/:id',
         name: 'MyPlaylist',
-        component: () => import('@/views/my/playlist.vue')
+        component: () => import('@/views/my/playlist.vue'),
+        meta: { title: '我的歌单' },
       }
     ]
   }

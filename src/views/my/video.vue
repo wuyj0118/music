@@ -22,6 +22,7 @@
 <script>
 import HeadLine from '@/components/common/HeadLine'
 import { getUserMv } from '@/api/api'
+import { calcCount } from '@/utils/assets'
 import dateFormat from 'dateformat'
 
 export default {
@@ -43,10 +44,7 @@ export default {
   },
   methods: {
     dateFormat,
-    calcCount(n) {
-      if (n > 1e4) return (n / 1e4).toFixed(1) + '万'
-      return n
-    },
+    calcCount,
   }
 }
 </script>

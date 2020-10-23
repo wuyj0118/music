@@ -9,7 +9,7 @@
       <template v-slot:fncs>
         <span>
           <span class="quick-cats" v-for="(t, index) in cats" :key="index">
-            <router-link :to="{path: '/playlist', query: { t } }">{{ t }}</router-link>
+            <router-link :to="{path: '/h/playlist', query: { t } }">{{ t }}</router-link>
           </span>
         </span>
       </template>
@@ -26,7 +26,7 @@
             <div class="cover-info">
               <span class="play-times">
                 <a-icon type="customer-service" />
-                <span class="times-t">{{ playCount(li.playCount) }}</span>
+                <span class="times-t">{{ calcCount(li.playCount) }}</span>
               </span>
               <span class="play-icon" @click="getPlaylistAndPlay(li.id)"><a-icon type="play-circle" /></span>
             </div>
@@ -41,6 +41,8 @@
 import HeadLine from '@/components/common/HeadLine.vue'
 import { mapActions } from 'vuex'
 import { getHotRec } from '@/api/api'
+import { calcCount } from '@/utils/assets'
+
 export default {
   name: 'HotRec',
   components: {
@@ -62,13 +64,8 @@ export default {
     })
   },
   methods: {
+    calcCount,
     ...mapActions(['getPlaylistAndPlay']),
-    playCount(i) {
-      if (i > 10000) {
-        return Math.round(i / 10000) + '万'
-      }
-      return i
-    }
   }
 }
 </script>

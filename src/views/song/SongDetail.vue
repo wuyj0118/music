@@ -20,21 +20,21 @@
           </p>
           <div class="song-fncs">
             <a-button-group>
-              <a-button size="small" type="primary" @click="addToPlay({ songs: [songDetail] })">
+              <a-button type="primary" @click="addToPlay({ songs: [songDetail] })">
                 <a-icon type="play-circle" />
                 播放
               </a-button>
-              <a-button size="small" type="primary" @click="addToNext([songDetail])">
+              <a-button type="primary" @click="addToNext([songDetail])">
                 <a-icon type="plus" />
               </a-button>
             </a-button-group>
-            <a-button size="small">
+            <a-button>
               <a-icon type="folder-add" />收藏
             </a-button>
-            <a-button size="small">
+            <a-button>
               <a-icon type="share-alt" />分享
             </a-button>
-            <a-button size="small">
+            <a-button>
               <a-icon type="download" />下载
             </a-button>
           </div>
@@ -237,6 +237,9 @@ export default {
   .song-fncs {
     display: flex;
     padding: 20px 0 20px 0;
+    .ant-btn {
+      padding: 0 6px;
+    }
     &>.ant-btn {
       margin-left: 8px;
     }

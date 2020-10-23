@@ -22,19 +22,19 @@
           </a-button-group>
           <a-button>
             <a-icon type="folder-add" />
-            ({{ listDetail.subscribedCount }})
+            ({{ calcCount(listDetail.subscribedCount) }})
           </a-button>
           <a-button>
             <a-icon type="share-alt" />
-            ({{ listDetail.shareCount }})
+            ({{ calcCount(listDetail.shareCount) }})
           </a-button>
-          <a-button>
+          <!-- <a-button>
             <a-icon type="download" />
             下载
-          </a-button>
+          </a-button> -->
           <a-button>
             <a-icon type="message" />
-            ({{ listDetail.commentCount }})
+            ({{ calcCount(listDetail.commentCount) }})
           </a-button>
         </div>
       </div>
@@ -60,6 +60,8 @@ import { mapMutations } from 'vuex'
 import SongList from '@/components/common/SongList'
 import Comment from '@/components/common/Comment'
 import { getPlaylistDetail, getSongDetail } from '@/api/api'
+import { calcCount } from '@/utils/assets'
+
 export default {
   name: 'RankDetail',
   components: {
@@ -98,6 +100,7 @@ export default {
     }
   },
   methods: {
+    calcCount,
     dateFormat,
     ...mapMutations(['addToPlay', 'addToNext']),
     getDetail(id) {
@@ -160,10 +163,10 @@ export default {
     // justify-content: space-between;
     padding-top: 22px;
     .ant-btn {
-      padding: 0 8px;
+      padding: 0 6px;
     }
     &>.ant-btn {
-      margin-left: 5px;
+      margin-left: 12px;
     }
   }
 }

@@ -20,6 +20,7 @@
 
 <script>
 import dateFormat from 'dateformat'
+import { calcCount } from '@/utils/assets'
 export default {
   name: 'SearchVideo',
   props: {
@@ -31,10 +32,7 @@ export default {
   },
   methods: {
     dateFormat,
-    calcCount(n) {
-      if (n > 1e4) return (n / 1e4).toFixed(1) + '万'
-      return n
-    },
+    calcCount,
     highlightText(t) {
       return t.replace(this.searchTxt, `<span style='color: #1890ff'>${this.searchTxt}</span>`)
     },

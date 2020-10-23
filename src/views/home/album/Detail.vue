@@ -28,15 +28,15 @@
             </a-button>
             <a-button>
               <a-icon type="share-alt" />
-              ({{ albumDetail.info.shareCount }})
+              ({{ calcCount(albumDetail.info.shareCount) }})
             </a-button>
-            <a-button>
+            <!-- <a-button>
               <a-icon type="download" />
               下载
-            </a-button>
+            </a-button> -->
             <a-button>
               <a-icon type="message" />
-              ({{ albumDetail.info.commentCount }})
+              ({{ calcCount(albumDetail.info.commentCount) }})
             </a-button>
           </div>
         </div>
@@ -74,6 +74,7 @@ import Comment from '@/components/common/Comment'
 import { getAlbumDetail } from '@/api/api'
 // import MiniHeadLine from '@/components/common/MiniHeadLine.vue'
 import ArRelateAlbum from '@/views/home/album/ArRelateAlbum.vue'
+import { calcCount } from '@/utils/assets'
 
 export default {
   name: 'PlaylistDetail',
@@ -121,8 +122,9 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['addToPlay', 'addToNext']),
+    calcCount,
     dateFormat,
+    ...mapMutations(['addToPlay', 'addToNext']),
     getDetail(id) {
       this.albumId = id
       getAlbumDetail({ id }).then(res => {
@@ -218,10 +220,10 @@ export default {
   .bi-fncs {
     padding: 20px 20px 0 0;
     .ant-btn {
-      padding: 0 8px;
+      padding: 0 6px;
     }
     &>.ant-btn {
-      margin-left: 8px;
+      margin-left: 12px;
     }
   }
 }

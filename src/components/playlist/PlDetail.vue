@@ -5,7 +5,9 @@
         <lazy-img :src="listDetail.coverImgUrl + '?param=200y200'" alt="" class="bic-img" />
       </div>
       <div class="bi-cnt">
-        <h3 class="bi-title"><span class="pl-self-icon">歌单</span>{{ listDetail.name }}</h3>
+        <h3 class="bi-title">
+          <span class="pl-self-icon">歌单</span>{{ listDetail.name }}
+        </h3>
         <div class="pl-creator">
           <router-link to="/">
             <img class="ctr-avatar" :src="creator.avatarUrl + '?param=40y40'" alt="">
@@ -23,28 +25,28 @@
               <a-icon type="plus" />
             </a-button>
           </a-button-group>
-          <a-button>
+          <a-button v-if="notMine">
             <a-icon type="folder-add" />
-            ({{ listDetail.subscribedCount }})
+            ({{ calcCount(listDetail.subscribedCount) }})
           </a-button>
-          <a-button>
+          <a-button v-if="notMine">
             <a-icon type="share-alt" />
-            ({{ listDetail.shareCount }})
+            ({{ calcCount(listDetail.shareCount) }})
           </a-button>
-          <a-button>
+          <!-- <a-button>
             <a-icon type="download" />
             下载
-          </a-button>
-          <a-button>
+          </a-button> -->
+          <a-button v-if="notMine">
             <a-icon type="message" />
-            ({{ listDetail.commentCount }})
+            ({{ calcCount(listDetail.commentCount) }})
           </a-button>
         </div>
-        <div class="pl-tags">
+        <div class="pl-tags" v-if="listDetail.tags.length">
           标签：
           <a-tag v-for='t in listDetail.tags' :key="t"><router-link :to="{ path: '/playlist', query: { t } }">{{ t }}</router-link></a-tag>
         </div>
-        <div class="pl-desc">
+        <div class="pl-desc" v-if="listDetail.description.length">
           介绍：{{ descText }}
           <p class="desc-all" v-if="listDetail.description.length > 90">
             <span v-if="descAll" @click="descAll = false" class="desc-clp">收起<a-icon type="up" /></span>
@@ -74,6 +76,7 @@ import { mapMutations } from 'vuex'
 import SongList from '@/components/common/SongList'
 import Comment from '@/components/common/Comment'
 import { getPlaylistDetail, getSongDetail } from '@/api/api'
+import { calcCount } from '@/utils/assets'
 
 export default {
   name: 'PlaylistDetail',
@@ -84,6 +87,7 @@ export default {
   data() {
     return {
       playlistId: 0,
+      notMine: false,
       descAll: false,
       listDetail: {
         coverImgUrl: '',
@@ -107,8 +111,7 @@ export default {
     }
   },
   created() {
-    const { id } = this.$route.params
-    if (id) this.getDetail(id)
+    this.watchId()
   },
   computed: {
     descText() {
@@ -120,13 +123,19 @@ export default {
     }
   },
   watch: {
-    '$route'({ params: { id } }) {
-      if (id) this.getDetail(id)
+    '$route'() {
+      this.watchId()
     }
   },
   methods: {
-    ...mapMutations(['addToPlay', 'addToNext']),
+    calcCount,
     dateFormat,
+    ...mapMutations(['addToPlay', 'addToNext']),
+    watchId() {
+      const { id, my } = this.$route.params
+      this.notMine = !my
+      if (id) this.getDetail(id)
+    },
     getDetail(id) {
       this.playlistId = id
       getPlaylistDetail({ id }).then(res => {
@@ -140,6 +149,7 @@ export default {
           })
           this.creator = p.creator
           this.allSongIds = p.trackIds.map(s => s.id)
+          this.$emit('pl-scb', p.subscribers)
         }
       })
     },
@@ -174,12 +184,13 @@ export default {
   }
   .bi-cnt {
     flex: 1;
-    padding-left: 15px;
+    padding: 0 15px;
   }
   .bi-title {
     font-size: 20px;
     line-height: 30px;
     font-weight: normal;
+    padding-left: 65px;
   }
   .pl-self-icon {
     display: inline-block;
@@ -193,6 +204,7 @@ export default {
     border-radius: 4px 0 0 4px;
     position: relative;
     margin-right: 20px;
+    margin-left: -65px;
     &::after {
       content: "";
       width: 20px;
@@ -220,11 +232,12 @@ export default {
     }
   }
   .bi-fncs {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 20px 0 0;
+    padding-top: 20px;
     .ant-btn {
-      padding: 0 5px;
+      padding: 0 6px;
+    }
+    &>.ant-btn {
+      margin-left: 12px;
     }
   }
   .pl-tags {
@@ -235,7 +248,6 @@ export default {
     font-size: 12px;
     color: #666;
     line-height: 1.5;
-    padding-right: 10px;
     white-space: pre-line;
     .desc-all {
       text-align: right;

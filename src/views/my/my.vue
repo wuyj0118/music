@@ -18,7 +18,14 @@
           </h3>
           <div class="list-collapse" :style="{ height: cs1*56*selfPl.length + 'px' }">
             <ul class="sub-pl-ul">
-              <router-link :to="{ name: 'MyPlaylist', params: { id: pl.id } }" tag="li" active-class="st-active" class="sub-pl-li" v-for="pl in selfPl" :key="pl.id">
+              <router-link
+                :to="{ name: 'MyPlaylist', params: { id: pl.id, my: true } }"
+                tag="li"
+                active-class="st-active"
+                class="sub-pl-li"
+                v-for="pl in selfPl"
+                :key="pl.id"
+              >
                 <div class="sub-pl-cover">
                   <img :src="pl.coverImgUrl + '?param=40y40'" alt="">
                 </div>
@@ -37,7 +44,14 @@
           </h3>
           <div class="list-collapse" :style="{ height: cs2*56*collectPl.length + 'px' }">
             <ul class="sub-pl-ul">
-              <router-link :to="{ name: 'MyPlaylist', params: { id: pl.id } }" tag="li" active-class="st-active" class="sub-pl-li" v-for="pl in collectPl" :key="pl.id">
+              <router-link
+                :to="{ name: 'MyPlaylist', params: { id: pl.id } }"
+                tag="li"
+                active-class="st-active"
+                class="sub-pl-li"
+                v-for="pl in collectPl"
+                :key="pl.id"
+              >
                 <div class="sub-pl-cover">
                   <img :src="pl.coverImgUrl + '?param=40y40'" alt="">
                 </div>
@@ -85,16 +99,25 @@ export default {
       this.subCount = res
     })
     const uid = this.$store.state.userInfo.id
-    getUserPlaylist({ uid, limit: 999 }).then(res => {
-      res.playlist.forEach(pl => {
+    getUserPlaylist({ uid, limit: 999 }).then(({ playlist }) => {
+      playlist.forEach(pl => {
         if (pl.creator.userId == uid) {
           this.selfPl.push(pl)
         } else {
           this.collectPl.push(pl)
         }
       })
+      this.cs1 = true
+      this.$router.replace({ name: 'MyPlaylist', params: { id: playlist[0].id, my: true } })
     })
   },
+  watch: {
+    $route(route) {
+      if (route.name == 'My' && this.selfPl.length) {
+        this.$router.replace({ name: 'MyPlaylist', params: { id: this.selfPl[0].id, my: true } })
+      }
+    }
+  }
 }
 </script>
 
@@ -115,8 +138,6 @@ export default {
   flex: 1;
 }
 .my-side {
-  height: calc(100vh - 66px);
-  overflow-y: scroll;
   width: 240px;
   border-right: 1px solid #e8e8e8;
   .sub-ul {

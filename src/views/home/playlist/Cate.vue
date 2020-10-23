@@ -40,7 +40,7 @@
               <div class="cover-info">
                 <span class="play-times">
                   <a-icon type="customer-service" />
-                  <span class="times-t">{{ playCount(li.playCount) }}</span>
+                  <span class="times-t">{{ calcCount(li.playCount) }}</span>
                 </span>
                 <span class="play-icon" @click="getPlaylistAndPlay(li.id)"><a-icon type="play-circle" /></span>
               </div>
@@ -64,6 +64,7 @@
 import { getPlayListCategory, getPlList } from '@/api/api'
 import { mapActions } from 'vuex'
 import HeadLine from '@/components/common/HeadLine.vue'
+import { calcCount } from '@/utils/assets'
 
 export default {
   name: 'Playlst',
@@ -105,10 +106,8 @@ export default {
     },
   },
   methods: {
+    calcCount,
     ...mapActions(['getPlaylistAndPlay']),
-    playCount(i) {
-      return i > 1e5 ? Math.round(i / 1e4) + '万' : i
-    },
     getPlList(page = 0) {
       this.currPage = page + 1
       getPlList({

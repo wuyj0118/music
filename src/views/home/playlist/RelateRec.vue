@@ -24,7 +24,6 @@ import MiniHeadLine from '@/components/common/MiniHeadLine.vue'
 
 export default {
   name: 'RelateRec',
-  props: ['id'],
   components: {
     MiniHeadLine,
   },
@@ -34,16 +33,17 @@ export default {
     }
   },
   created() {
-    this.getRelate()
+    const { id } = this.$route.params
+    if (id) this.getRelate(id)
   },
   watch: {
-    id() {
-      this.getRelate()
+    '$route'({ params: { id } }) {
+      if (id) this.getRelate(id)
     }
   },
   methods: {
-    getRelate() {
-      getRelatePlaylist({ id: this.id }).then(res => {
+    getRelate(id) {
+      getRelatePlaylist({ id }).then(res => {
         this.relateList = res.playlists
       })
     }
