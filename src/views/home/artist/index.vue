@@ -4,10 +4,10 @@
       <div class="as-type">
         <h3 class="ast-title">推荐</h3>
         <p class="ast-ul">
-          <router-link class="ast-li" to="/artist">推荐歌手</router-link>
+          <router-link class="ast-li" to="/h/artist">推荐歌手</router-link>
         </p>
         <p class="ast-ul">
-          <router-link class="ast-li" to="/artist/sign">入驻歌手</router-link>
+          <router-link class="ast-li" to="/h/artist/sign">入驻歌手</router-link>
         </p>
       </div>
       <div class="as-type" v-for="a in areas" :key="a[0]">

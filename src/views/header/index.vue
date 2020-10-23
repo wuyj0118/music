@@ -20,7 +20,10 @@
     <div class="nav-r">
       <HeaderSeach />
       <div>
-        <span class="nav-login" @click="switchLoginModal(true)">登陆</span>
+        <span v-if="!uid" class="nav-login" @click="switchLoginModal(true)">登陆</span>
+        <div v-else>
+          <a-avatar :src="avatarUrl" alt="U" />
+        </div>
       </div>
     </div>
     <Login />
@@ -28,10 +31,12 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import HeaderSeach from '@/views/header/search'
-import Login from '@/views/header/Login'
+import Login from '@/views/login/index'
 import logoImg from '@/assets/logo.png'
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+// import { getUserDetail } from '@/api/api'
 export default {
   name: 'Nav',
   components: {
@@ -43,9 +48,35 @@ export default {
       logoImg,
     }
   },
-  methods: {
-    ...mapMutations(['switchLoginModal'])
+  computed: {
+    ...mapState({
+      uid: s => s.userInfo.id,
+      avatarUrl: s => s.userInfo.avatarUrl,
+    })
   },
+  created() {
+    const id = Cookies.get('__UU_ID')
+    if (id) {
+      this.saveUserInfo({ id })
+    }
+  },
+  methods: {
+    ...mapMutations(['switchLoginModal', 'saveUserInfo']),
+  },
+  watch: {
+    uid(uid) {
+      if (uid) {
+        // getUserDetail({ uid }).then(res => {
+        //   const { level, listenSongs } = res
+        //   const { nickname, signature, avatarUrl } = res.profile
+        //   this.saveUserInfo({
+        //     level, listenSongs,
+        //     nickname, signature, avatarUrl,
+        //   })
+        // })
+      }
+    }
+  }
 }
 </script>
 

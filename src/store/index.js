@@ -14,6 +14,14 @@ export default new Vuex.Store({
     login: {
       isModal: false,
     },
+    userInfo: {
+      id: 0,
+      level: 0,
+      listenSongs: 0,
+      nickname: '',
+      avatarUrl: '',
+      signature: '',
+    },
   },
   getters: {
     currPlaySong: ({ player }) => {
@@ -63,6 +71,11 @@ export default new Vuex.Store({
     },
     switchLoginModal({ login }, status) {
       login.isModal = status
+    },
+    saveUserInfo({ userInfo }, info) {
+      for (let [k, v] of Object.entries(info)) {
+        userInfo[k] = v
+      }
     }
   },
   actions: {

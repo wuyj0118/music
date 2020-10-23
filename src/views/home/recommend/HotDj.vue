@@ -3,7 +3,7 @@
   <div id="hot-dj">
     <MiniHeadLine title="热门电台">
       <template v-slot:link>
-        <router-link to="/radio">查看全部<a-icon type="right" /></router-link>
+        <router-link to="/h/radio">查看全部<a-icon type="right" /></router-link>
       </template>
     </MiniHeadLine>
     <ul class="hd-list">

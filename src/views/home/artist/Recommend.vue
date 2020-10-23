@@ -3,7 +3,7 @@
     <div class="rec-art-sign">
       <HeadLine title="入驻歌手">
         <template v-slot:link>
-          <router-link to="/artist/link" class="more-link">更多 ></router-link>
+          <router-link to="/h/artist/sign" class="more-link">更多 ></router-link>
         </template>
       </HeadLine>
       <div class="rcrt-list">

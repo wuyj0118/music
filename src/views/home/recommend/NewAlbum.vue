@@ -7,7 +7,7 @@
         </span>
       </template>
       <template v-slot:link>
-        <router-link class="more-link" to="/album">更多<a-icon type="right" /></router-link>
+        <router-link class="more-link" to="/h/album">更多<a-icon type="right" /></router-link>
       </template>
     </HeadLine>
     <ul class="al-list">

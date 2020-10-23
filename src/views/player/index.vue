@@ -213,9 +213,12 @@ export default {
     cursor: pointer;
   }
   .ctl-prev, .ctl-next {
-    color: #ccc;
+    color: #ddd;
     font-size: 26px;
     cursor: pointer;
+    &:hover {
+      color: #fff;
+    }
   }
 }
 .player-song {

@@ -2,12 +2,12 @@
   <div id="hot-artist">
     <MiniHeadLine title="热门歌手">
       <template v-slot:link>
-        <router-link to="/artist">查看全部<a-icon type="right" /></router-link>
+        <router-link to="/h/artist">查看全部<a-icon type="right" /></router-link>
       </template>
     </MiniHeadLine>
     <ul class="ha-list">
       <li class="ha-li" v-for="al in artistList" :key="al.id">
-        <router-link :to="{ path: `/artist/${al.id}`, params: { al } }">
+        <router-link :to="{ path: `/h/artist/${al.id}`, params: { al } }">
           <div class="hali-wrap">
             <img :src="al.picUrl + '?param=60y60'" alt="" class="ha-cover" />
             <div class="ha-info">

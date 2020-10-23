@@ -3,7 +3,7 @@
     <div class="rs-adv">
       <h3 class="rs-title">云音乐特色榜</h3>
       <div class="rs-list">
-        <router-link :to="'/rank/' + li.id" v-for="li in cFeature" :key="li.id">
+        <router-link :to="{ name: 'RankDetail', params: { id: li.id } }" v-for="li in cFeature" :key="li.id">
           <div class="rs-li">
             <img :src="li.coverImgUrl + '?param=40y40'" alt="" class="rsli-cover">
             <div class="rsli-desc">

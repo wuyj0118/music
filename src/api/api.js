@@ -1,7 +1,12 @@
 import axios from 'axios'
 
-const HOST = 'http://47.107.33.131:3000'
+axios.defaults.withCredentials = true
 
+let HOST = 'http://47.107.33.131:3000'
+
+if (process.env.NODE_ENV == 'development') {
+  HOST = 'http://127.0.0.1:3000'
+}
 
 const interceptResponse = res => {
   if (res.status == 200) {
@@ -26,7 +31,7 @@ const request = (url, method, params = {}) => {
   }
 
   if (method == 'post') {
-    return axios.post(apiurl, params).then(interceptResponse)
+    return axios.post(apiurl, { params }).then(interceptResponse)
   }
 }
 
@@ -78,4 +83,16 @@ export const getRadioDetail = params => request('/dj/detail', 'get', params) // 
 export const getRadioProgram = params => request('/dj/program', 'get', params) // 电台节目列表
 export const getProgramDetail = params => request('/dj/program/detail', 'get', params) // 电台节目详情
 export const getProgramComment = params => request('/comment/dj', 'get', params) // 电台节目评论
+
+export const emailLogin = params => request('/login', 'get', params) // 邮箱登陆
+export const cellphoneLogin = params => request('/login/cellphone', 'get', params) // 手机号登陆
+export const loginStatus = params => request('/login/status', 'get', params) // 登陆状态
+
+export const getUserRecommend = params => request('/recommend/songs', 'get', params) // 每日推荐
+export const getUserDetail = params => request('/user/detail', 'get', params) // 用户详情
+export const getUserSubcount = params => request('/user/subcount', 'get', params) // 用户歌单、歌手、电台数量
+export const getUserPlaylist = params => request('/user/playlist', 'get', params) // 用户创建/收藏歌单
+export const getUserArtist = params => request('/artist/sublist', 'get', params) // 用户收藏歌手
+export const getUserMv = params => request('/mv/sublist', 'get', params) // 用户收藏MV
+export const getUserRadio = params => request('/dj/sublist', 'get', params) // 用户订阅的电台
 

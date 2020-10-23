@@ -14,13 +14,13 @@
         </span>
       </template>
       <template v-slot:link>
-        <router-link class="more-link" to="/playlist">更多<a-icon type="right" /></router-link>
+        <router-link class="more-link" to="/h/playlist">更多<a-icon type="right" /></router-link>
       </template>
     </HeadLine>
     <div class="hot-list">
         <div class="list-item" v-for="li in hotList" :key="li.id">
           <div class="list-cover">
-            <router-link :to="'/playlist/' + li.id">
+            <router-link :to="{ name: 'PlaylistDetail', params: { id: li.id } }">
               <lazy-img class="cover-img" :src="li.picUrl + '?param=145y145'" />
             </router-link>
             <div class="cover-info">
@@ -31,7 +31,7 @@
               <span class="play-icon" @click="getPlaylistAndPlay(li.id)"><a-icon type="play-circle" /></span>
             </div>
           </div>
-          <router-link class="cover-name" :to="'/playlist/' + li.id">{{ li.name }}</router-link>
+          <router-link class="cover-name" :to="{ name: 'PlaylistDetail', params: { id: li.id } }">{{ li.name }}</router-link>
         </div>
     </div>
   </div>

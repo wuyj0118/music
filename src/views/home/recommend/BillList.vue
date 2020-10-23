@@ -7,7 +7,7 @@
         </span>
       </template>
       <template v-slot:link>
-        <router-link class="more-link" to="/rank">更多<a-icon type="right" /></router-link>
+        <router-link class="more-link" to="/h/rank">更多<a-icon type="right" /></router-link>
       </template>
     </HeadLine>
     <div class="bill-bg">

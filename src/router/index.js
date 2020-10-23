@@ -25,7 +25,7 @@ const routes = [
         children: [
           {
             path: '',
-            redirect: '/rank/19723756'
+            redirect: '/h/rank/19723756'
           },
           {
             path: ':id',
@@ -160,13 +160,35 @@ const routes = [
   {
     path: '/search',
     name: 'Search',
-    component: () => import('../views/search/index.vue'),
+    component: () => import('@/views/search/index.vue'),
     meta: { title: '搜索结果' },
   },
   {
     path: '/my',
     name: 'My',
-    component: () => import('../views/my/my.vue')
+    component: () => import('@/views/my/my.vue'),
+    children: [
+      {
+        path: 'artist',
+        name: 'MyArtist',
+        component: () => import('@/views/my/artist.vue')
+      },
+      {
+        path: 'video',
+        name: 'MyVideo',
+        component: () => import('@/views/my/video.vue')
+      },
+      {
+        path: 'radio',
+        name: 'MyRadio',
+        component: () => import('@/views/my/radio.vue')
+      },
+      {
+        path: 'playlist/:id',
+        name: 'MyPlaylist',
+        component: () => import('@/views/my/playlist.vue')
+      }
+    ]
   }
 ]
 
