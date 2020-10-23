@@ -62,7 +62,9 @@ export default {
         })
         this.cFeature = c
         this.gMedia = g
-        this.$router.replace({ name: 'RankDetail', params: { id: c[0].id } })
+        if (this.$route.name != 'RankDetail') {
+          this.$router.replace({ name: 'RankDetail', params: { id: c[0].id } })
+        }
       }
     })
   },

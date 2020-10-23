@@ -108,7 +108,9 @@ export default {
         }
       })
       this.cs1 = true
-      this.$router.replace({ name: 'MyPlaylist', params: { id: playlist[0].id, my: true } })
+      if (this.$route.name != 'MyPlaylist') {
+        this.$router.replace({ name: 'MyPlaylist', params: { id: playlist[0].id, my: true } })
+      }
     })
   },
   watch: {
