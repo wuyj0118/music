@@ -36,7 +36,8 @@ import HeaderSeach from '@/views/header/search'
 import Login from '@/views/login/index'
 import logoImg from '@/assets/logo.png'
 import { mapState, mapMutations } from 'vuex'
-// import { getUserDetail } from '@/api/api'
+import { getUserDetail } from '@/api/api'
+
 export default {
   name: 'Nav',
   components: {
@@ -66,14 +67,14 @@ export default {
   watch: {
     uid(uid) {
       if (uid) {
-        // getUserDetail({ uid }).then(res => {
-        //   const { level, listenSongs } = res
-        //   const { nickname, signature, avatarUrl } = res.profile
-        //   this.saveUserInfo({
-        //     level, listenSongs,
-        //     nickname, signature, avatarUrl,
-        //   })
-        // })
+        getUserDetail({ uid }).then(res => {
+          const { level, listenSongs } = res
+          const { nickname, signature, avatarUrl } = res.profile
+          this.saveUserInfo({
+            level, listenSongs,
+            nickname, signature, avatarUrl,
+          })
+        })
       }
     }
   }

@@ -12,7 +12,7 @@
               <span class="radio-name">
                 <router-link :to="{ name: 'RadioDetail', params: { id: programDetail.radio.id } }">{{ programDetail.radio.name }}</router-link>
               </span>
-              <a-button size="small">
+              <a-button>
                 <a-icon type="folder-add" />
                 订阅({{ programDetail.radio.subCount }})
               </a-button>
@@ -320,7 +320,7 @@ export default {
       height: 45px;
     }
     .pd-ncer {
-      width: 145px;
+      width: 165px;
       display: flex;
       flex-direction: column;
       justify-content: center;

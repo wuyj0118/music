@@ -9,14 +9,14 @@
           <h3 class="bi-title"><span class="rd-self-icon">电台</span>{{ radioDetail.name }}</h3>
           <div class="rd-dj">
             <router-link to="/">
-              <img class="ctr-avatar" :src="dj.avatarUrl + '?param=40y40'" alt="">
+              <lazy-img class="ctr-avatar" :src="dj.avatarUrl + '?param=40y40'" />
             </router-link>
             <router-link to="/" class="ctr-nickname">{{ dj.nickname }}</router-link>
           </div>
           <div class="rd-fncs">
             <a-button>
               <a-icon type="folder-add" />
-              订阅({{ radioDetail.subCount }})
+              订阅({{ calcCount(radioDetail.subCount) }})
             </a-button>
             <a-button>
               <a-icon type="play-circle" />
@@ -24,7 +24,7 @@
             </a-button>
             <a-button>
               <a-icon type="share-alt" />
-              分享({{ radioDetail.shareCount }})
+              分享({{ calcCount(radioDetail.shareCount) }})
             </a-button>
           </div>
           <div class="radio-ctg">
@@ -65,7 +65,7 @@
               <router-link :to="{ name: 'RadioProgramDetail', query: { id: p.id } }">{{ p.name }}</router-link>
             </p>
             <p class="rpl-playtimes">
-              播放{{ p.listenerCount }}
+              播放{{ calcCount(p.listenerCount) }}
             </p>
             <p class="rpl-liketimes">
               赞{{ p.likedCount }}
@@ -110,6 +110,7 @@
 import dateFormat from 'dateformat'
 import { mapMutations } from 'vuex'
 import { getRadioDetail, getRadioProgram, getDjRadioHot } from '@/api/api'
+import { calcCount } from '@/utils/assets'
 import HeadLine from '@/components/common/HeadLine.vue'
 import MiniHeadLine from '@/components/common/MiniHeadLine.vue'
 
@@ -172,11 +173,12 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['addToPlay', 'addToNext']),
+    calcCount,
     dateFormat,
+    ...mapMutations(['addToPlay', 'addToNext']),
     getDetail(rid) {
       this.radioId = rid
-      getRadioDetail({ rid }).then(({ djRadio }) => {
+      getRadioDetail({ rid }).then(({ data: djRadio }) => {
         const { picUrl, desc, name, subCount, shareCount, category, categoryId } = djRadio
         this.radioDetail = { picUrl, desc, name, subCount, shareCount, category, categoryId }
         this.categoryId = categoryId
@@ -280,7 +282,8 @@ export default {
     // justify-content: space-between;
     padding: 20px 20px 0 0;
     .ant-btn {
-      margin-right: 20px;
+      padding: 0 5px;
+      margin-right: 12px;
     }
   }
   .radio-ctg {
@@ -406,7 +409,7 @@ export default {
       height: 45px;
     }
     .rd-ncer {
-      width: 150px;
+      width: 155px;
       display: flex;
       flex-direction: column;
       justify-content: center;

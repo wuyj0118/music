@@ -10,7 +10,7 @@
         </h3>
         <div class="pl-creator">
           <router-link to="/">
-            <img class="ctr-avatar" :src="creator.avatarUrl + '?param=40y40'" alt="">
+            <lazy-img class="ctr-avatar" :src="creator.avatarUrl + '?param=40y40'" />
           </router-link>
           <router-link to="/" class="ctr-nickname">{{ creator.nickname }}</router-link>
           <span class="create-time">{{ dateFormat(listDetail.createTime, 'yyyy-mm-dd') }}创建</span>
@@ -132,24 +132,25 @@ export default {
     dateFormat,
     ...mapMutations(['addToPlay', 'addToNext']),
     watchId() {
-      const { id, my } = this.$route.params
-      this.notMine = !my
+      const { id } = this.$route.params
       if (id) this.getDetail(id)
     },
     getDetail(id) {
       this.playlistId = id
       getPlaylistDetail({ id }).then(res => {
         if (res.code == 200) {
-          const p = res.playlist
+          const pl = res.playlist
           for (const k in this.listDetail) {
-            this.listDetail[k] = p[k] === null ? '' : p[k]
+            this.listDetail[k] = pl[k] === null ? '' : pl[k]
           }
-          this.songList = p.tracks.map(({ id, name, dt, ar, al }) => {
+          this.songList = pl.tracks.map(({ id, name, dt, ar, al }) => {
             return { id, name, dt, ar, al}
           })
-          this.creator = p.creator
-          this.allSongIds = p.trackIds.map(s => s.id)
-          this.$emit('pl-scb', p.subscribers)
+          this.creator = pl.creator
+          this.allSongIds = pl.trackIds.map(s => s.id)
+          const myId = this.$store.state.userInfo.id
+          this.notMine = pl.userId != myId
+          this.$emit('pl-scb', pl.subscribers)
         }
       })
     },

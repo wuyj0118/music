@@ -19,7 +19,7 @@
           <div class="list-collapse" :style="{ height: cs1*56*selfPl.length + 'px' }">
             <ul class="sub-pl-ul">
               <router-link
-                :to="{ name: 'MyPlaylist', params: { id: pl.id, my: true } }"
+                :to="{ name: 'MyPlaylist', params: { id: pl.id } }"
                 tag="li"
                 active-class="st-active"
                 class="sub-pl-li"
@@ -109,14 +109,14 @@ export default {
       })
       this.cs1 = true
       if (this.$route.name != 'MyPlaylist') {
-        this.$router.replace({ name: 'MyPlaylist', params: { id: playlist[0].id, my: true } })
+        this.$router.replace({ name: 'MyPlaylist', params: { id: playlist[0].id } })
       }
     })
   },
   watch: {
     $route(route) {
       if (route.name == 'My' && this.selfPl.length) {
-        this.$router.replace({ name: 'MyPlaylist', params: { id: this.selfPl[0].id, my: true } })
+        this.$router.replace({ name: 'MyPlaylist', params: { id: this.selfPl[0].id } })
       }
     }
   }
